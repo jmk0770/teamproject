@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 <title>Insert title here</title>  
 
 	<!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="../css/stylish-portfolio.css" rel="stylesheet">
     
     <!-- Custom Fonts -->
     <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -146,6 +153,70 @@ button{float:right; width:150px; height:35px;}
 </style>
 </head>
 <body>
+	<!-- Navigation -->    
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">
+                    <i class="fa fa-play-circle"></i>  <span class="light">Start</span> Share My T-Story
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                    	<a href="#top"></a>
+           			</li>
+		            <li>
+		                <a class="page-scroll" href="../index.html#top">Home</a>
+		            </li>
+		            <li>
+		                <a class="page-scroll" href="../index.html#about">About</a>
+		            </li>
+		            <li>
+		                <a class="page-scroll" href="../index.html#services">Services</a>
+		            </li>
+		            <li>
+		                <a class="page-scroll" href="../index.html#ourStory">Our Story</a>
+		            </li>
+		            <li>
+		                <a class="page-scroll" href="../index.html#contact">Map</a>
+		            </li>
+		            <!-- Navigation -->
+				    <a id="menu-toggle" href="#" class="btn btn-light btn-lg toggle"><i class="fa fa-bars"></i></a>
+				    <nav id="sidebar-wrapper">
+				        <ul class="sidebar-nav">
+				            <a id="menu-close" href="#" class="btn btn-light btn-sm pull-right toggle"><i class="fa fa-times"></i></a>
+				            <li class="sidebar-brand">
+				            </li>
+				            <li>
+				                <a href="#" data-toggle="modal"  data-target="#loginModal" onclick = $("#menu-close").click();>로그인</a>
+				            </li>
+				            <li>
+				                <a href="#" data-toggle="modal"  data-target="#signUpModal" onclick = $("#menu-close").click();>회원가입</a>
+				            </li>
+				            <li>
+				                <a href="myPageMain.html" >내정보 보기</a>
+				            </li>
+				            <li>
+				                <a href="reviewBoard.html" >후기 게시판</a>
+				            </li>
+				            <li>
+				                <a href="freeBoard.html" >자유 게시판</a>
+				            </li>
+				        </ul>
+				    </nav>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
 
 
 
@@ -166,6 +237,7 @@ button{float:right; width:150px; height:35px;}
   <div id=follow>
   + 팔로우
   </div>
+  
   <div id="write">
   <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#writeModal">글쓰기</button>
   </div>
@@ -175,6 +247,8 @@ button{float:right; width:150px; height:35px;}
   <div id=followPage onclick="followPage()">팔로우 페이지</div>
   <div id=likePage onclick="likePage()">좋아요</div>
   </div>
+  
+  
   
 <section>
  <iframe src="myPage/myTab.html" width="1024px" height="800px" scrolling="no" frameborder="0px"></iframe>
@@ -238,6 +312,80 @@ function likePage(){
       $(function(){
         $('#edit').editable({inlineMode: false})
       });
-  </script>
+  	</script>
+  
+  	<!-- Custom Theme JavaScript -->
+    <script>
+    var sidebarflag = false;
+    
+    /*
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();     
+        $("#sidebar-wrapper").toggleClass("active"); 
+        sidebarflag = true;  
+        
+    });
+	// Closes the sidebar menu
+	$("#menu-close").click(function(e) {
+        e.preventDefault();
+        $("#sidebar-wrapper").toggleClass("active");
+        sidebarflag = false;
+    });
+	*/     
+   
+	// Scrolls to the selected menu item on the page
+    /*
+    $(function() {
+        $('a[href*=#]:not([href=#])').click(function() {
+            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                if (target.length) {
+                    $('html,body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                    return false;
+                }
+            }
+        });
+    });
+    */
+    // mouse click navi and event 관련 JavaScript
+    $(document).on("click",function(e) {     	
+    	if($(e.target).is("#menu-toggle") || $(e.target).is("#menu-toggle .fa") ){    		
+    		e.preventDefault();     
+    	    $("#sidebar-wrapper").toggleClass("active");
+    	    sidebarflag = true;
+    	}
+    	else if($(e.target).is("#menu-close") || $(e.target).is("#menu-close .fa") ){
+    		e.preventDefault();     
+   	    	$("#sidebar-wrapper").toggleClass("active");
+   	    	sidebarflag = false;
+    	}
+    	else if($(e.target).parents("#sidebar-wrapper").size() == 0) {
+    		if(sidebarflag){
+    			e.preventDefault();
+    			$("#sidebar-wrapper").toggleClass("active");
+    			sidebarflag = false;
+    		}
+    	}   
+    	else if($(e.target).is("page-scroll")){
+    		if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                if (target.length) {
+                    $('html,body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                    return false;
+                }
+            }
+    	}
+    });
+
+    
+    </script>
 </body>
 </html>

@@ -10,13 +10,13 @@
     <title>우리는 홍천강조 입니다.</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="../css/stylish-portfolio.css" rel="stylesheet">
+    <link href="../../css/stylish-portfolio.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
     
 	<!-- 모달 -->
@@ -79,10 +79,10 @@
 <!-- 국가 Slide tab 관련 css Style -->
 <style type="text/css">
 
-ul
-
 .visualArea  {
 	position: relative;
+	border-style: solid;
+    border-width: 2px;
 	width: 100%;
 	height: 500px;
     background-image: url(bgimg.jpg);
@@ -140,6 +140,26 @@ ul
     filter: alpha(opacity=70);
 }
 
+ul, ul li, ol, ol li {
+	display: inline-block;
+    
+}
+
+ul, menu, dir {
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 40px;
+}
+
+.slideTab a, .slideTab a:link {
+    font-size: 18px;
+    padding : 5px;
+    color: #844242;
+}
 </style>
     
 
@@ -167,19 +187,19 @@ ul
                     	<a href="#top"></a>
            			</li>
 		            <li>
-		                <a class="page-scroll" href="../index.html#top">Home</a>
+		                <a class="page-scroll" href="../../index.html#top">Home</a>
 		            </li>
 		            <li>
-		                <a class="page-scroll" href="../index.html#about">About</a>
+		                <a class="page-scroll" href="../../index.html#about">About</a>
 		            </li>
 		            <li>
-		                <a class="page-scroll" href="../index.html#services">Services</a>
+		                <a class="page-scroll" href="../../index.html#services">Services</a>
 		            </li>
 		            <li>
-		                <a class="page-scroll" href="../index.html#ourStory">Our Story</a>
+		                <a class="page-scroll" href="../../index.html#ourStory">Our Story</a>
 		            </li>
 		            <li>
-		                <a class="page-scroll" href="../index.html#contact">Map</a>
+		                <a class="page-scroll" href="../../index.html#contact">Map</a>
 		            </li>
 		            <!-- Navigation -->
 				    <a id="menu-toggle" href="#" class="btn btn-light btn-lg toggle"><i class="fa fa-bars"></i></a>
@@ -210,9 +230,9 @@ ul
     	<div class="mainCopy">
     		<strong>Input Title </strong>
        	</div>    
-       	
+       	 
        	<div class="countryPack">
-       		<div class="slideTab">
+       		<div class="slideTab ">
        			<ul>
        				<li>
        					<a href="#" data-title="#slide01" class>전체</a>
@@ -232,7 +252,11 @@ ul
        				<li>
        					<a href="#" data-title="#slide06" class>국내</a>
        				</li>
-       			</ul>
+       			</ul>       		
+       		</div>
+       		<!--  //slide Tab -->
+       		<!--  counry Slide -->
+       		<div class="countrySlide">
        		
        		</div>
        	
@@ -245,29 +269,34 @@ ul
     
     
     <!-- jQuery -->
-    <script src="../js/jquery.js"></script>
+    <script src="../../js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../js/bootstrap.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
     <script>
-    // Closes the sidebar menu
-    $("#menu-close").click(function(e) {
-        e.preventDefault();
-        $("#sidebar-wrapper").toggleClass("active");
-    });
-
-    // Opens the sidebar menu
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#sidebar-wrapper").toggleClass("active");
-    });
-
-    // Scrolls to the selected menu item on the page
-    $(function() {
-        $('a[href*=#]:not([href=#])').click(function() {
-            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+    // mouse click navi and event 관련 JavaScript
+    $(document).on("click",function(e) {     	
+    	if($(e.target).is("#menu-toggle") || $(e.target).is("#menu-toggle .fa") ){    		
+    		e.preventDefault();     
+    	    $("#sidebar-wrapper").toggleClass("active");
+    	    sidebarflag = true;
+    	}
+    	else if($(e.target).is("#menu-close") || $(e.target).is("#menu-close .fa") ){
+    		e.preventDefault();     
+   	    	$("#sidebar-wrapper").toggleClass("active");
+   	    	sidebarflag = false;
+    	}
+    	else if($(e.target).parents("#sidebar-wrapper").size() == 0) {
+    		if(sidebarflag){
+    			e.preventDefault();
+    			$("#sidebar-wrapper").toggleClass("active");
+    			sidebarflag = false;
+    		}
+    	}   
+    	else if($(e.target).is("page-scroll")){
+    		if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
 
                 var target = $(this.hash);
                 target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
@@ -278,7 +307,7 @@ ul
                     return false;
                 }
             }
-        });
+    	}
     });
     </script>
 
